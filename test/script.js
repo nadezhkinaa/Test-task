@@ -13,7 +13,7 @@ $(document).ready(function() {
 
             temp += "<td>" + value.position + "</td>";
 
-            temp += "<td>" + value.priority + "</td>";
+            temp += "<td class='priority-cell'>" + value.priority + "</td>";
 
             temp += "<td>" + value.max_priority + "</td>";
 
@@ -34,6 +34,14 @@ $(document).ready(function() {
             $("#table tr").removeClass("active");
             $(this).addClass("active");
         }
+
+        const rowIndex = $(this).index() - 1;
+
+        const priorityCell = $(this).find(".priority-cell");
+        const priority = parseInt(priorityCell.text(), 10);
+
+        console.log("Row Index:", rowIndex);
+        console.log("Priority:", priority);
     });
 
     // sorting
