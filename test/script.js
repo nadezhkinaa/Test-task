@@ -21,6 +21,8 @@ $(document).ready(function() {
         });
 
         $("#table").append(temp);
+
+        sortTable(2, 1); // 2 - индекс столбца "Приоритет" (нумерация с 0)
     });
     //handler for clicking on a cell
     $("#table").on("click", "tr", function(event) {
@@ -33,4 +35,38 @@ $(document).ready(function() {
             $(this).addClass("active");
         }
     });
+
+    // sorting
+    function sortTable(colIndexPriority, colIndexPosition) {
+        const rows = $("#table tr:gt(0)");
+        rows.sort(function(a, b) {
+            const aPriority = parseInt(
+                $(a)
+                .find("td:nth-child(" + (colIndexPriority + 1) + ")")
+                .text(),
+                10
+            );
+            const bPriority = parseInt(
+                $(b)
+                .find("td:nth-child(" + (colIndexPriority + 1) + ")")
+                .text(),
+                10
+            );
+
+            if (aPriority !== bPriority) {
+                return bPriority - aPriority;
+            } else {
+                const aPosition = $(a)
+                    .find("td:nth-child(" + (colIndexPosition + 1) + ")")
+                    .text();
+                const bPosition = $(b)
+                    .find("td:nth-child(" + (colIndexPosition + 1) + ")")
+                    .text();
+                return aPosition.localeCompare(bPosition);
+            }
+        });
+        $.each(rows, function(index, row) {
+            $("#table").append(row);
+        });
+    }
 });
