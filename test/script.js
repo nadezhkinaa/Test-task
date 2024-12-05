@@ -12,7 +12,7 @@ $(document).ready(function() {
         });
         $("#table").append(temp);
         sortTable(2, 1);
-        updateSelectOptions($(this));
+        //updateSelectOptions($(this));
     });
 
     //handler for clicking on a row
@@ -27,16 +27,18 @@ $(document).ready(function() {
 
     // Save button click handler
     $(".save-button").click(function() {
+        const jsonData = generateJsonData();
+        console.log(JSON.stringify(jsonData, null, 2));
         savePriorityChanges();
     });
 
     // Increase priority button click handler
-    $("button:contains('Повысить')").click(function() {
+    $(".increase-button").click(function() {
         changePriority(1);
     });
 
     // Decrease priority button click handler
-    $("button:contains('Понизить')").click(function() {
+    $(".decrease-button").click(function() {
         changePriority(-1);
     });
 
@@ -94,6 +96,8 @@ $(document).ready(function() {
             $(this).find(".priority-cell").text(currentPriority);
         });
         sortTable(2, 1);
+        const jsonData = generateJsonData();
+        console.log(JSON.stringify(jsonData, null, 2));
     }
 
     // sorting function
@@ -126,5 +130,26 @@ $(document).ready(function() {
             }
         });
         $("#table").append(rows);
+    }
+    //ouput jsondata in console
+    function generateJsonData() {
+        const rows = $("#table tr:not(:first)");
+        const jsonData = [];
+
+        rows.each(function() {
+            const name = $(this).find("td:nth-child(1)").text();
+            const position = $(this).find("td:nth-child(2)").text();
+            const priority = parseInt($(this).find("td:nth-child(3)").text(), 10);
+            const maxPriority = parseInt($(this).find("td:nth-child(4)").text(), 10);
+
+            jsonData.push({
+                name: name,
+                position: position,
+                priority: priority,
+                max_priority: maxPriority,
+            });
+        });
+
+        return jsonData;
     }
 });

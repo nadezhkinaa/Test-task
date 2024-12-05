@@ -1,3 +1,17 @@
+:root {
+    --font-family: "Montserrat";
+    --font-s: 20px;
+    --color-font: #fdfdfd;
+}
+
+body {
+    font-family: var(--font-family);
+}
+
+h1 {
+    text-align: center;
+}
+
 .table {
     border-collapse: collapse;
     border-spacing: 0;
