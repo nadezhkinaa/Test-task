@@ -12,15 +12,16 @@ $(document).ready(function() {
         });
         $("#table").append(temp);
         sortTable(2, 1);
-        updateSelectOptions();
+        updateSelectOptions($(this));
     });
 
-    //handler for clicking on a row  -  Fixes header selection bug
+    //handler for clicking on a row
     $("#table").on("click", "tr:not(:first)", function(event) {
         if (event.ctrlKey) {
             $(this).toggleClass("active");
         } else {
             $("#table tr").removeClass("active");
+            $(this).addClass("active");
         }
     });
 
@@ -62,6 +63,7 @@ $(document).ready(function() {
         });
         sortTable(2, 1);
     }
+
     // Function to increase or decrease priority
     function changePriority(changeAmount) {
         const selectedRows = $("#table tr.active");
@@ -86,24 +88,43 @@ $(document).ready(function() {
                 return;
             }
 
-            $(this)
-                .find(".priority-cell")
-                .text(currentPriority + changeAmount);
+            currentPriority += changeAmount;
+            currentPriority = Math.max(0, Math.min(currentPriority, maxPriority));
+
+            $(this).find(".priority-cell").text(currentPriority);
         });
         sortTable(2, 1);
     }
 
-    //Sorting function
-    function sortTable(colIndex, asc) {
-        const table = $("#table");
-        const rows = table
-            .find("tr:gt(0)")
-            .toArray()
-            .sort(function(a, b) {
-                const aVal = parseInt($(a).find("td").eq(colIndex).text(), 10);
-                const bVal = parseInt($(b).find("td").eq(colIndex).text(), 10);
-                return (aVal > bVal ? 1 : -1) * (asc ? 1 : -1);
-            });
-        table.append(rows);
+    // sorting function
+    function sortTable(colIndexPriority, colIndexPosition) {
+        const rows = $("#table tr:gt(0)");
+        rows.sort(function(a, b) {
+            const aPriority = parseInt(
+                $(a)
+                .find("td:nth-child(" + (colIndexPriority + 1) + ")")
+                .text(),
+                10
+            );
+            const bPriority = parseInt(
+                $(b)
+                .find("td:nth-child(" + (colIndexPriority + 1) + ")")
+                .text(),
+                10
+            );
+
+            if (aPriority !== bPriority) {
+                return bPriority - aPriority;
+            } else {
+                const aPosition = $(a)
+                    .find("td:nth-child(" + (colIndexPosition + 1) + ")")
+                    .text();
+                const bPosition = $(b)
+                    .find("td:nth-child(" + (colIndexPosition + 1) + ")")
+                    .text();
+                return aPosition.localeCompare(bPosition);
+            }
+        });
+        $("#table").append(rows);
     }
 });
