@@ -1,7 +1,14 @@
 [
-    { "name": "Диплом", "position": 2, "priority": 2, "max_priority": 2 },
-    { "name": "Курсовая", "position": 1, "priority": 3, "max_priority": 3 },
+    { "name": "Диплом", "position": 2, "priority": 2, "max_priority": 5 },
+    { "name": "Курсовая", "position": 1, "priority": 3, "max_priority": 4 },
     { "name": "Прогулка", "position": 4, "priority": 1, "max_priority": 3 },
+    {
+        "name": "Домашняя работа",
+        "position": 6,
+        "priority": 2,
+        "max_priority": 3
+    },
+    { "name": "Лабы", "position": 7, "priority": 1, "max_priority": 3 },
     {
         "name": "Компьютерные игры",
         "position": 3,
