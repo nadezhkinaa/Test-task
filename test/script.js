@@ -12,7 +12,6 @@ $(document).ready(function() {
         });
         $("#table").append(temp);
         sortTable(2, 1);
-        //updateSelectOptions($(this));
     });
 
     //handler for clicking on a row
@@ -131,6 +130,7 @@ $(document).ready(function() {
         });
         $("#table").append(rows);
     }
+
     //ouput jsondata in console
     function generateJsonData() {
         const rows = $("#table tr:not(:first)");

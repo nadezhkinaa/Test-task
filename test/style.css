@@ -92,3 +92,12 @@ button {
     border-bottom: 2px solid var(--border-table-color);
     background-color: var(--background-table-color);
 }
+
+.image {
+    padding-top: 30px;
+    height: 300px;
+    width: 200px;
+    display: block;
+    margin: auto;
+    display: none;
+}
